@@ -14,6 +14,31 @@
  * -2^31 <= val <= 2^31 - 1.
  * pop, top and getMin will always be called on non-empty stacks.
  */
-public class MinStack {
+public class MinStack { {
+    Deque<Integer> dq;
+    Deque<Integer> mdq;
 
+    public MinStack() {
+        dq = new ArrayDeque<>();
+        mdq = new ArrayDeque<>();
+    }
+    
+    public void push(int val) {
+        int c = !mdq.isEmpty() ? mdq.getLast() : val;
+        dq.addLast(val);
+        mdq.addLast(Math.min(c, val));
+    }
+    
+    public void pop() {
+        dq.removeLast();
+        mdq.removeLast();
+    }
+    
+    public int top() {
+        return dq.getLast();
+    }
+    
+    public int getMin() {
+        return mdq.getLast();
+    }
 }
