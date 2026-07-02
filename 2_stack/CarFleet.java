@@ -21,5 +21,24 @@
  * All the values of position are unique.
  */
 public class CarFleet {
-    
+    public int carFleet(int target, int[] position, int[] speed) {
+        int[][] a = new int[position.length][2];
+        for (int i = 0; i < position.length; i++) {
+            a[i][0] = position[i];
+            a[i][1] = speed[i];
+        }
+
+        Arrays.sort(a, (x, y) -> Integer.compare(x[0], y[0]));
+
+        Deque<Double> dq = new ArrayDeque<>();
+        dq.addLast((double) (target - a[0][0]) / a[0][1]);
+
+        for (int i = 1; i < a.length; i++) {
+            double t = (double) (target - a[i][0]) / a[i][1];
+            while(!dq.isEmpty() && dq.getLast() <= t) dq.removeLast();
+            dq.add(t);
+        }
+
+        return dq.size();
+    }
 }
