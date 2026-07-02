@@ -12,5 +12,19 @@
  * 1 <= s.length <= 1000
  */
 public class ValidParentheses {
-    
+    public boolean isValid(String s) {
+        Deque<Character> dq = new ArrayDeque<>();
+        for (char c : s.toCharArray()) {
+            if (c == ')') {
+                if (dq.isEmpty() || dq.removeLast() != '(') return false;
+            } else if (c == ']') {
+                if (dq.isEmpty() || dq.removeLast() != '[') return false;
+            } else if (c == '}') {
+                if (dq.isEmpty() || dq.removeLast() != '{') return false;
+            } else {
+                dq.addLast(c);
+            }
+        }
+        return dq.isEmpty();
+    }
 }
