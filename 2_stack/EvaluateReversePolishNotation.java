@@ -12,5 +12,27 @@
  * tokens[i] is "+", "-", "*", or "/", or a string representing an integer in the range [-200, 200].
  */
 public class Evaluate ReversePolishNotation {
+   public int evalRPN(String[] tokens) {
+        Deque<Integer> dq = new ArrayDeque<>();
 
+        for (String t : tokens) {
+            if (t.equals("+")) {
+                dq.addLast(dq.removeLast()+dq.removeLast());
+            } else if (t.equals("-")) {
+                int a = dq.removeLast();
+                int b = dq.removeLast();
+                dq.addLast(b-a);
+            } else if (t.equals("*")) {
+                dq.addLast(dq.removeLast()*dq.removeLast());
+            } else if (t.equals("/")) {
+                int a = dq.removeLast();
+                int b = dq.removeLast();
+                dq.addLast(b/a);
+            } else {
+                dq.addLast(Integer.parseInt(t));
+            }
+        }
+
+        return dq.removeLast();
+    }
 }
