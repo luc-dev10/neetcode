@@ -10,5 +10,19 @@
  * 1 <= temperatures[i] <= 100
  */
 public class DailyTemperatures {
+    public int[] dailyTemperatures(int[] temperatures) {
+        Deque<int[]> dq = new ArrayDeque<>();
+        int[] res = new int[temperatures.length];
 
+        for (int i = 0; i < temperatures.length; i++) {
+            while (!dq.isEmpty() && dq.getLast()[0] < temperatures[i]) {
+                int[] p = dq.removeLast();
+                res[p[1]] = i - p[1];
+            }
+
+            dq.addLast(new int[] {temperatures[i],i});
+        }
+
+        return res;
+    }
 }
