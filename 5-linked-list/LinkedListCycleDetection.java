@@ -11,4 +11,18 @@
  * -1000 <= Node.val <= 1000
  * index is -1 or a valid index in the linked list.
  */
-public class LinkedListCycleDetection {}
+public class LinkedListCycleDetection {
+    public boolean hasCycle(ListNode head) {
+        if (head == null) return false;
+        ListNode sp = head;
+        ListNode fp = head;
+
+        while (sp != null && sp.next != null) {
+            fp = fp.next;
+            sp = sp.next.next;
+            if (sp == fp) return true;
+        }
+
+        return false;
+    }
+}
