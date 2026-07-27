@@ -16,5 +16,37 @@
  * 
 */
 public class ReorderLinkedList {
+    public void reorderList(ListNode head) {
+        if (head == null || head.next == null) return;
 
+        ListNode sp = head;
+        ListNode fp = head;
+
+        while (fp != null && fp.next != null) {
+            sp = sp.next;
+            fp = fp.next.next;
+        }
+
+        fp = sp.next;
+        sp.next = null;
+        sp = head;x   
+
+        ListNode previous = null;
+        while (fp != null) {
+            ListNode next = fp.next;
+            fp.next = previous;
+            previous = fp;
+            fp = next;
+        }
+
+        fp = previous;        
+        while (fp != null) {
+            ListNode fn = sp.next;
+            ListNode sn = fp.next;
+            sp.next = fp;
+            fp.next = fn;
+            sp = fn;
+            fp = sn;
+        }
+    }
 }
