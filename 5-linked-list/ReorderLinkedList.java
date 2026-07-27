@@ -29,7 +29,7 @@ public class ReorderLinkedList {
 
         fp = sp.next;
         sp.next = null;
-        sp = head;x   
+        sp = head;
 
         ListNode previous = null;
         while (fp != null) {
