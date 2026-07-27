@@ -23,8 +23,7 @@ public class RemoveNthNodeFromEndOfList() {
             fp = fp.next;
         }
 
-        ListNode current = sp.next;
-        sp.next = current.next;
+        sp.next = sp.next.next;
         return dummy.next;
     }
 }
