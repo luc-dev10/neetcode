@@ -22,5 +22,35 @@
  * 
  */
 public class CopyLinkedListWithRandomPointer() {
+   public Node copyRandomList(Node head) {
+        Node o = head;
+        while (o != null) {
+            Node next = o.next;
+            Node node = new Node(o.val);
+            o.next = node;
+            node.next = next;
+            o = next;
+        }
 
+        o = head;
+        while (o != null) {
+            Node r = o.random;
+            o.next.random = r != null ? r.next : null;
+            o = o.next.next;
+        }
+
+        Node dummy = new Node(-1);
+        Node current = dummy;
+        o = head;
+        while (o != null) {
+            Node hc = o.next;
+            Node next = o.next.next;
+            o.next = next;
+            current.next = hc;
+            current = current.next;
+            o = o.next;
+        }
+
+        return dummy.next;
+    }
 }
