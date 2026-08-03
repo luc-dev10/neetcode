@@ -10,4 +10,26 @@
  * 1 <= l1.length, l2.length <= 100.
  * 0 <= Node.val <= 9
  */
-public class AddTwoNumbers {}
+public class AddTwoNumbers {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode fp = l1;
+        ListNode sp = l2;
+        ListNode dummy = new ListNode(-1);
+        ListNode current = dummy;
+        int c = 0;
+
+        while (fp != null || sp != null || c != 0) {
+            int f = fp != null ? fp.val : 0;
+            int s = sp != null ? sp.val : 0;
+            int t = (c + f + s) % 10;
+            c = (c + f + s) / 10;
+
+            current.next = new ListNode(t);
+            current = current.next;
+            fp = fp != null ? fp.next : null;
+            sp = sp != null ? sp.next : null;
+        }
+
+        return dummy.next;
+    }
+}
