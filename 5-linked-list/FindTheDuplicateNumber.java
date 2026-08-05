@@ -13,4 +13,26 @@
  * nums.length == n + 1
  * 1 <= nums[i] <= n
  */
-public class FindTheDuplicateNumber {}
+public class FindTheDuplicateNumber {
+    public int findDuplicate(int[] nums) {
+        int sp = nums[0];
+        int fp = nums[0];
+
+        while (true) {
+            sp = nums[sp];
+            fp = nums[fp];
+            fp = nums[fp];
+            if (sp == fp) break;
+        }
+
+        sp = nums[0];
+        while (sp != fp) {
+            sp = nums[sp];
+            fp = nums[fp];
+        }
+
+        return sp;
+    }
+}
+
+}
