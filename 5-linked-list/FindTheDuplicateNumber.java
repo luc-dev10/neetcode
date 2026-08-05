@@ -18,12 +18,11 @@ public class FindTheDuplicateNumber {
         int sp = nums[0];
         int fp = nums[0];
 
-        while (true) {
+        do {
             sp = nums[sp];
             fp = nums[fp];
             fp = nums[fp];
-            if (sp == fp) break;
-        }
+        } while (sp != fp);
 
         sp = nums[0];
         while (sp != fp) {
@@ -33,6 +32,4 @@ public class FindTheDuplicateNumber {
 
         return sp;
     }
-}
-
 }
