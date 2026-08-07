@@ -18,15 +18,68 @@
  * At most 2 * 10^5 calls will be made to get and put.
  */
 public class LruCache {
-    public LruCache(int capacity) {
-        
+    Map<Integer, Node> hm;
+    Node dummy;
+    Node tail;
+    int capacity;
+
+    public LRUCache(int capacity) {
+        this.hm = new HashMap<>();
+        this.dummy = new Node(-1, -1);
+        this.tail = dummy;
+        this.capacity = capacity;
     }
     
     public int get(int key) {
-        
+        if (!this.hm.containsKey(key)) return -1;
+        Node node = this.hm.get(key);
+        this.moveFirst(node);
+        return node.value;
     }
     
     public void put(int key, int value) {
+        Node node = this.hm.get(key);
+        if (node != null) {
+            node.value = value;
+            this.moveFirst(node);
+            return;
+        } 
         
+        if (this.capacity == this.hm.size()) {
+            this.hm.remove(this.tail.key);
+            this.tail = this.tail.previous;
+            this.tail.next = null;
+        }
+ 
+        node = new Node(key, value);
+        node.next = this.dummy.next;
+        node.previous = this.dummy;
+        if (this.dummy.next != null) this.dummy.next.previous = node;
+        else this.tail = node;
+        this.dummy.next = node;
+        this.hm.put(key, node); 
+    }
+
+    private void moveFirst(Node node) {
+        if (this.dummy.next == node) return;
+        node.previous.next = node.next;
+        if (node.next != null) node.next.previous = node.previous;
+        else this.tail = node.previous;
+        node.next = this.dummy.next;
+        this.dummy.next.previous = node;
+        node.previous = this.dummy;
+        this.dummy.next = node;
+    }
+}
+
+class Node {
+    int key;
+    int value;
+    Node previous;
+    Node next;
+
+    public Node(int key, int value) {
+        this.key = key;
+        this.value = value;
     }
 }
