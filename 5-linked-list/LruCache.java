@@ -31,8 +31,8 @@ public class LruCache {
     }
     
     public int get(int key) {
-        if (!this.hm.containsKey(key)) return -1;
         Node node = this.hm.get(key);
+        if (node == null) return -1;
         this.moveFirst(node);
         return node.value;
     }
