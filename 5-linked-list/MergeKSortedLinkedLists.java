@@ -13,5 +13,40 @@
  * The sum of lists[i].length will not exceed 10000.
  */
 public class MergeKSortedLinkedLists {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists.length == 0) return null;
 
+        for (int i = 1; i <= lists.length; i *= 2) {
+            for (int j = 0; j < lists.length; j = j + 2 * i) {
+                int r = j + i;
+                ListNode a = lists[j];
+                ListNode b = r >= lists.length ? null : lists[r];
+                lists[j] = merge(a, b);
+            }
+        }
+
+        return lists[0];
+    }
+
+    private ListNode merge(ListNode a, ListNode b) {
+        ListNode fp = a;
+        ListNode sp = b;
+        ListNode dummy = new ListNode(-1);
+        ListNode current = dummy;
+
+        while (fp != null && sp != null) {
+            if (fp.val <= sp.val) {
+                current.next = fp;
+                fp = fp.next;
+            } else {
+                current.next = sp;
+                sp = sp.next;
+            }
+
+            current = current.next;
+        }
+
+        current.next = fp != null ? fp : sp; 
+        return dummy.next;
+    }
 }
