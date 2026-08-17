@@ -12,5 +12,42 @@
  * 0 <= Node.val <= 100
  */
 public class ReverseNodesInKGroup {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode dummy = new ListNode(-1);
+        ListNode ll = dummy;
+        ll.next = head;
+        ListNode r = this.getRight(ll.next, k);
 
+        while (r != null) {
+            ListNode l = ll.next;
+            ListNode rl = r.next;
+            ListNode p = null;
+            ListNode c = l;
+
+            while (c != rl) {
+                ListNode n = c.next;
+                c.next = p;
+                p = c;
+                c = n;
+            }
+
+            ll.next = p;
+            l.next = rl;
+            ll = l;
+            r = this.getRight(ll.next, k);
+        }
+        
+        return dummy.next;
+    }
+
+    public ListNode getRight(ListNode n, int k) {
+        ListNode c = n;
+        int i = 1;
+        while (c != null) {
+            if (i == k) return c;
+            i++;
+            c = c.next;
+        }
+        return null;
+    }
 }
