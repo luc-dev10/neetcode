@@ -15,5 +15,26 @@
  * 
  * */
 public class LongestRepeatingCharacterReplacement {
-    
+    public int characterReplacement(String s, int k) {
+        int[] a = new int[26];
+        int l = 0;
+        int hc = 0;
+        int t = 0;
+
+        for (int r = 0; r < s.length(); r++) {
+            int p = s.charAt(r) - 'A';
+            a[p]++;
+            hc = Math.max(hc, a[p]);
+
+            while (r - l + 1 - hc > k) {
+                a[s.charAt(l) - 'A']--;
+                l++;
+                // for (int i = 0; i < a.length; i++) hc = Math.max(hc, a[i]);
+            }
+
+            t = Math.max(t, r - l + 1);
+        }
+
+        return t;
+    }
 }
