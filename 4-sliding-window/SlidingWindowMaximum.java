@@ -10,4 +10,28 @@
  * -10,000 <= nums[i] <= 10,000
  * 1 <= k <= nums.length
  */
-public class SlidingWindowMaximum {}
+public class SlidingWindowMaximum {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        Deque<Integer> dq = new ArrayDeque<>();
+        int[] res = new int[nums.length - k + 1];
+        int l = 0;
+
+        for (int r = 0; r < nums.length; r++) {
+            while (!dq.isEmpty() && nums[dq.getLast()] <= nums[r]) {
+                dq.removeLast();
+            }
+
+            dq.addLast(r);
+
+            if (r - l + 1 == k) {
+                res[l] = nums[dq.getFirst()];
+                if (dq.getFirst() == l) dq.removeFirst();
+                l++;
+            }
+        }
+        
+        return res;    
+    }
+}
+
+}
